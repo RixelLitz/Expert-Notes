@@ -5,7 +5,7 @@ import { toast } from "sonner"
 
 export function NewNoteCard() {
   const [shouldShowOnBoarding, setShouldShowOnBoarding] = useState(true)
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState("")
   function handleStartEditor() {
     setShouldShowOnBoarding(false)
   }
@@ -17,7 +17,10 @@ export function NewNoteCard() {
   }
   function handleSaveNote(event: FormEvent) {
     event.preventDefault()
-    toast.success('Nota criada com sucesso!')
+    toast.success("Nota criada com sucesso!")
+  }
+  function handleCloseDialog() {
+    setShouldShowOnBoarding(true)
   }
   return (
     <Dialog.Root>
@@ -36,7 +39,7 @@ export function NewNoteCard() {
           </Dialog.Close>
           <form onSubmit={handleSaveNote} className="flex flex-col flex-1">
             <div className="flex flex-1 flex-col gap-3 p-5">
-              <h1 className="text-sm font-medium text-slate-300">
+              <h1 className="text-sm font-medium mt-5 text-slate-300">
                 Adicionar nota
               </h1>
               {shouldShowOnBoarding ? (
@@ -68,6 +71,14 @@ export function NewNoteCard() {
               Salvar nota
             </button>
           </form>
+          <button
+            onClick={handleCloseDialog}
+            className={`absolute text-sm left-0 top-0 p-1.5 text-slate-400 hover:text-slate-100 ${
+              shouldShowOnBoarding ? "hidden" : "block"
+            }`}
+          >
+            Voltar
+          </button>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
