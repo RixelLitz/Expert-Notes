@@ -10,20 +10,31 @@ export function NewNoteCard() {
     setShouldShowOnBoarding(false)
   }
   function handleContentChanged(event: ChangeEvent<HTMLTextAreaElement>) {
+    // pega os dados digitados na textarea
     setContent(event.target.value)
     if (event.target.value === "") {
       setShouldShowOnBoarding(true)
     }
   }
   function handleSaveNote(event: FormEvent) {
+    // Salva a nota quando é enviado um submit no form
     event.preventDefault()
+    if (content === "") {
+      console.log("negado")
+      return toast.error("Você não pode adicionar uma nota vazia.")
+    }
+    console.log("aprovado")
+    setContent("")
     toast.success("Nota criada com sucesso!")
-  }
-  function handleCloseDialog() {
     setShouldShowOnBoarding(true)
   }
+  function handleCloseDialog() {
+    //Usado para reset quando fecha o dialog.
+    setShouldShowOnBoarding(true)
+    setContent("")
+  }
   return (
-    <Dialog.Root>
+    <Dialog.Root onOpenChange={handleCloseDialog}>
       <Dialog.Trigger className="rounded-md bg-slate-700 p-5 text-left flex flex-col gap-3 hover:ring-2 hover: ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400 outline-none">
         <h1 className="text-sm font-medium text-slate-200">Adicionar nota</h1>
         <p className="text-sm leading-6 text-slate-400">
@@ -37,6 +48,14 @@ export function NewNoteCard() {
           <Dialog.Close className="absolute right-0 top-0 p-1.5 text-slate-400 hover:text-slate-100">
             <X className="size-5" />
           </Dialog.Close>
+          <button
+            onClick={handleCloseDialog}
+            className={`absolute text-sm left-0 top-0 p-1.5 text-slate-400 hover:text-slate-100 ${
+              shouldShowOnBoarding ? "hidden" : "block"
+            }`}
+          >
+            Voltar
+          </button>
           <form onSubmit={handleSaveNote} className="flex flex-col flex-1">
             <div className="flex flex-1 flex-col gap-3 p-5">
               <h1 className="text-sm font-medium mt-5 text-slate-300">
@@ -71,14 +90,6 @@ export function NewNoteCard() {
               Salvar nota
             </button>
           </form>
-          <button
-            onClick={handleCloseDialog}
-            className={`absolute text-sm left-0 top-0 p-1.5 text-slate-400 hover:text-slate-100 ${
-              shouldShowOnBoarding ? "hidden" : "block"
-            }`}
-          >
-            Voltar
-          </button>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
