@@ -5,8 +5,8 @@ import { Notes } from "../pages/notes.tsx"
 function Routes() {
   return (
     <Router>
-      <Route path={"/"} element={<Home />} />
-      <Route path={"/notes"} element={<Notes />} />
+      <Route path={"/notes"} element={<Home />} />
+      <Route path={"/"} element={<Notes />} />
     </Router>
   )
 }
