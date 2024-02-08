@@ -2,8 +2,11 @@ import * as Dialog from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 import { ChangeEvent, FormEvent, useState } from "react"
 import { toast } from "sonner"
+interface NewNoteCardProps {
+  oneNoteCreated: (content: string) => void
+}
 
-export function NewNoteCard() {
+export function NewNoteCard({oneNoteCreated}: NewNoteCardProps) {
   const [shouldShowOnBoarding, setShouldShowOnBoarding] = useState(true)
   const [content, setContent] = useState("")
   function handleStartEditor() {
@@ -23,7 +26,7 @@ export function NewNoteCard() {
       console.log("negado")
       return toast.error("Você não pode adicionar uma nota vazia.")
     }
-    console.log("aprovado")
+    oneNoteCreated(content)
     setContent("")
     toast.success("Nota criada com sucesso!")
     setShouldShowOnBoarding(true)
