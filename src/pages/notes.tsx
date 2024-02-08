@@ -32,7 +32,7 @@ export function Notes() {
       return note.id != id
     })
     setNotes(notesArray)
-    const notesOnStorage = localStorage.getItem("notes")
+    localStorage.setItem("notes", JSON.stringify(notesArray))
   }
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
     const query = event.target.value

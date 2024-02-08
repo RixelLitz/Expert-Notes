@@ -1,5 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog"
-import { format, formatDistanceToNow } from "date-fns"
+import {formatDistanceToNow } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { X } from "lucide-react"
 
