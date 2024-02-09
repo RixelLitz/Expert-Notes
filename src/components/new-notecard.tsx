@@ -11,6 +11,7 @@ export function NewNoteCard({ oneNoteCreated }: NewNoteCardProps) {
   const [shouldShowOnBoarding, setShouldShowOnBoarding] = useState(true)
   const [content, setContent] = useState("")
   const [isRecording, setIsRecording] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
 
   function handleStartEditor() {
     setShouldShowOnBoarding(false)
@@ -33,6 +34,7 @@ export function NewNoteCard({ oneNoteCreated }: NewNoteCardProps) {
     setContent("")
     toast.success("Nota criada com sucesso!")
     setShouldShowOnBoarding(true)
+    setDialogOpen(false)
   }
   function handleStartRecording() {
     const isSpeechRecognitionAPIAvaible = // verificação se a api de gravação de voz é suportada no navegador do usuario
@@ -73,9 +75,15 @@ export function NewNoteCard({ oneNoteCreated }: NewNoteCardProps) {
     setShouldShowOnBoarding(true)
     setContent("")
   }
-  
+
   return (
-    <Dialog.Root onOpenChange={handleCloseDialog}>
+    <Dialog.Root
+      open={dialogOpen}
+      onOpenChange={() => {
+        setDialogOpen(!dialogOpen)
+        handleCloseDialog()
+      }}
+    >
       <Dialog.Trigger className="rounded-md bg-slate-700 p-5 text-left flex flex-col gap-3 hover:ring-2 hover: ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400 outline-none">
         <h1 className="text-sm font-medium text-slate-200">Adicionar nota</h1>
         <p className="text-sm leading-6 text-slate-400">
