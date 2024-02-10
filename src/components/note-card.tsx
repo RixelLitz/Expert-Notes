@@ -3,8 +3,8 @@ import { useState } from "react"
 import { formatDistanceToNow } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { X } from "lucide-react"
-import { Pen } from "lucide-react"
-import { ArrowLeftFromLine } from "lucide-react"
+import { Pen, ArrowLeftFromLine } from "lucide-react"
+import { toast } from "sonner"
 
 interface NoteCardProps {
   note: {
@@ -85,8 +85,13 @@ export function NoteCard({ note, onNoteDeleted, onNoteEdited }: NoteCardProps) {
           </div>
           <button
             onClick={() => {
-              onNoteEdited(note.id, newContent)
-              setIsDialogOpen(false) // Fecha o dialog após a edição
+              if (newContent.trim() !== "") {
+                onNoteEdited(note.id, newContent)
+                setIsDialogOpen(false) // Fecha o dialog após a edição
+                return toast.success("Nota alterada com sucesso!")
+              } else {
+                 return toast.error("Você não pode adicionar uma nota vazia.")
+              }
             }}
             type="button"
             className={`${
