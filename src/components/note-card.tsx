@@ -29,7 +29,7 @@ export function NoteCard({ note, onNoteDeleted, onNoteEdited }: NoteCardProps) {
         setIsEditing(false) // Ao fechar o dialog, redefine o estado de edição
       }}
     >
-      <Dialog.Trigger className="rounded-md text-left flex flex-col outline-none bg-slate-800 p-5 gap-3 overflow-hidden relative hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
+      <Dialog.Trigger className="  rounded-md text-left flex flex-col outline-none bg-slate-800 p-5 gap-3 overflow-hidden relative hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
         <h1 className="text-sm font-medium text-slate-300 first-letter:uppercase">
           {formatDistanceToNow(note.date, {
             locale: ptBR,
@@ -40,7 +40,9 @@ export function NoteCard({ note, onNoteDeleted, onNoteEdited }: NoteCardProps) {
         <button onClick={() => setIsEditing(true)}>
           <Pen className="absolute top-0 right-0 m-2 size-5 text-slate-400" />
         </button>
-        <p className="text-sm leading-6 text-slate-400">{note.content}</p>
+        <p className="break-all  overflow-y-scroll text-sm leading-6 text-slate-400">
+          {note.content}
+        </p>
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/60 to-black/0 pointer-events-none" />
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -90,7 +92,7 @@ export function NoteCard({ note, onNoteDeleted, onNoteEdited }: NoteCardProps) {
                 setIsDialogOpen(false) // Fecha o dialog após a edição
                 return toast.success("Nota alterada com sucesso!")
               } else {
-                 return toast.error("Você não pode adicionar uma nota vazia.")
+                return toast.error("Você não pode adicionar uma nota vazia.")
               }
             }}
             type="button"

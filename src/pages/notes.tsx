@@ -57,7 +57,13 @@ export function Notes() {
       : notes
   return (
     <div className="mx-auto space-y-6 max-w-6xl my-12 px-5">
-      <img src={logo} alt="Logo Expert Note" />
+      <div className="flex gap-5 items-center">
+        <img src={logo} alt="Logo Expert Note" />
+        <h1 className="text-sm text-slate-600">
+          Desenvolvido com ❤ por Rian B.
+        </h1>
+      </div>
+
       <form className="w-full">
         <input
           type="text"
@@ -71,7 +77,12 @@ export function Notes() {
         <NewNoteCard oneNoteCreated={oneNoteCreated} />
         {filteredNotes.map((note) => {
           return (
-            <NoteCard key={note.id} note={note} onNoteDeleted={onNoteDeleted}  onNoteEdited= {onNoteEdited}/>
+            <NoteCard
+              key={note.id}
+              note={note}
+              onNoteDeleted={onNoteDeleted}
+              onNoteEdited={onNoteEdited}
+            />
           )
         })}
       </div>
