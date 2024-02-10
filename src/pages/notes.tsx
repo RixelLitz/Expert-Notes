@@ -7,7 +7,6 @@ interface Note {
   date: Date
   content: string
 }
-
 export function Notes() {
   const [search, setSearch] = useState("")
   const [notes, setNotes] = useState<Note[]>(() => {
@@ -33,6 +32,18 @@ export function Notes() {
     })
     setNotes(notesArray)
     localStorage.setItem("notes", JSON.stringify(notesArray))
+  }
+  function onNoteEdited(id: string, newContent: string) {
+    const updatedNotes = notes.map((note) => {
+      if (note.id === id) {
+        // Se o ID da nota corresponder ao ID fornecido, atualize o conteúdo
+        return { ...note, content: newContent }
+      }
+      return note
+    })
+
+    setNotes(updatedNotes)
+    localStorage.setItem("notes", JSON.stringify(updatedNotes))
   }
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
     const query = event.target.value
@@ -60,7 +71,7 @@ export function Notes() {
         <NewNoteCard oneNoteCreated={oneNoteCreated} />
         {filteredNotes.map((note) => {
           return (
-            <NoteCard key={note.id} note={note} onNoteDeleted={onNoteDeleted} />
+            <NoteCard key={note.id} note={note} onNoteDeleted={onNoteDeleted}  onNoteEdited= {onNoteEdited}/>
           )
         })}
       </div>

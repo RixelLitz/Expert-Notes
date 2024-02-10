@@ -2,6 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 import { ChangeEvent, FormEvent, useState } from "react"
 import { toast } from "sonner"
+import { ArrowLeftFromLine } from "lucide-react"
 let speechRecognition: SpeechRecognition | null = null
 interface NewNoteCardProps {
   oneNoteCreated: (content: string) => void
@@ -99,15 +100,15 @@ export function NewNoteCard({ oneNoteCreated }: NewNoteCardProps) {
           </Dialog.Close>
           <button
             onClick={handleCloseDialog}
-            className={`absolute text-sm left-0 top-0 p-1.5 text-slate-400 hover:text-slate-100 ${
+            className={`absolute m-2 left-0 top-0 text-slate-400 hover:text-slate-100 ${
               shouldShowOnBoarding ? "hidden" : "block"
             }`}
           >
-            Voltar
+            <ArrowLeftFromLine className="size-5" />
           </button>
           <form className="flex flex-col flex-1">
             <div className="flex flex-1 flex-col gap-3 p-5">
-              <h1 className="text-sm font-medium mt-5 text-slate-300">
+              <h1 className="text-sm font-medium mt-10 text-slate-300 ">
                 Adicionar nota
               </h1>
               {shouldShowOnBoarding ? (
